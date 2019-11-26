@@ -1,0 +1,7 @@
+wait_for:
+    timeout: 10
+    task: target
+    ports:
+    - 22
+    want_state: "started"
+    remote: "10.211.55.23"

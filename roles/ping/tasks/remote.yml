@@ -1,0 +1,8 @@
+- name: "wait"
+  wait_for:
+    host: "{{ inventory_hostname }}"
+    port: "{{ item }}"
+    timeout: "{{ wait_for.timeout }}"
+    state: "{{ wait_for.want_state }}"
+  delegate_to: "{{ wait_for.remote }}"
+  with_items: "{{ wait_for.ports }}"

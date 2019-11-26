@@ -1,0 +1,7 @@
+- name: "Checking.."
+  wait_for:
+    host: "{{ wait_for.remote }}"
+    port: "{{ item }}"
+    timeout: "{{ wait_for.timeout }}"
+    state: "{{ wait_for.want_state }}"
+  with_items: "{{ wait_for.ports }}"
