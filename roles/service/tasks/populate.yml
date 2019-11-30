@@ -1,0 +1,12 @@
+- name: "Seaching for {{ service_name }}"
+  set_fact:
+    found_service_state: "{{ inner_item['value']['state'] | default('unknown') }}"
+    found_service_status: "{{ inner_item['value']['status'] | default('unknown')}}"
+  loop: "{{ ansible_facts.services | dict2items }}"
+  loop_control:
+    loop_var: inner_item
+  when: inner_item["key"] == service_name
+- name: "Check services status"
+  fail:
+    msg: "Service {{ service_name }} shoud be {{ service_state }} and {{ service_status }}, now its {{ found_service_state }} and {{ found_service_status }}"
+  when: found_service_state != service_state 

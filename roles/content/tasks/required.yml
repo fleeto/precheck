@@ -1,0 +1,9 @@
+- name: "Validating {{ filename }}"
+  shell: "grep '{{ line }}' '{{ filename }}'"
+  register:
+    line_not_exists
+  ignore_errors: true
+  changed_when: false
+- fail:
+    msg: "Failed on {{ filename }}."
+  when: line_not_exists.rc != 0 

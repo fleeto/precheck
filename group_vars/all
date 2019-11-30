@@ -5,3 +5,30 @@ wait_for:
     - 22
     want_state: "started"
     remote: "10.211.55.23"
+modprobe:
+    - br_netfilter
+
+# state should be "stopped" or "started"
+# state should be "enabled" or "disabled"
+service:
+    - name: "firewalld.service"
+      status: "disabled"
+      state: "stopped"
+
+
+command:
+    - "wget"
+    - "ip"
+    - "iptables"
+    - "ethtool"
+    - "socat"
+    - "tc"
+    - "touch"
+
+content_denied:
+    - file: "/etc/hosts"
+      line: "search"
+
+content_required:
+    - file: "/etc/selinux/config"
+      line: "SELINUX=enforcing"

@@ -1,0 +1,5 @@
+- name: "wait"
+  wait_for:
+    port: "{{ item }}"
+    timeout: "{{ wait_for.timeout }}"
+  with_items: "{{ wait_for.ports }}"

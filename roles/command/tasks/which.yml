@@ -1,0 +1,8 @@
+- name: "Checking for command {{ executable }}"
+  shell: "which {{ executable }}"
+  register: command_exists
+  ignore_errors: true
+  changed_when: false
+- fail:
+    msg: "Command '{{ executable }}' not exists."
+  when: command_exists.rc != 0

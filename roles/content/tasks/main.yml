@@ -1,0 +1,13 @@
+- name: "Checking for denied contents."
+  include_tasks: "denied.yml"
+  vars:
+    filename: "{{ item.file }}"
+    line: "{{ item.line }}"
+  loop: "{{ content_denied }}"
+
+- name: "Checking for required contents."
+  include_tasks: "required.yml"
+  vars:
+    filename: "{{ item.file }}"
+    line: "{{ item.line }}"
+  loop: "{{ content_required }}"

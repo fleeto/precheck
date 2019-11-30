@@ -1,0 +1,5 @@
+- name: "Checking for Commands"
+  vars:
+    executable: "{{ item }}"
+  include_tasks: "which.yml"
+  loop: "{{ command }}"

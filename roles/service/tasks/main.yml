@@ -1,0 +1,9 @@
+- name: "Fetching services status"
+  service_facts:
+- name: "Checking "
+  include_tasks: "populate.yml"
+  vars:
+    service_name: "{{ item.name }}"
+    service_status: "{{ item.status }}"
+    service_state: "{{ item.state }}"
+  loop: "{{ service }}"
