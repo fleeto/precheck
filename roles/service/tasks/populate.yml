@@ -6,7 +6,8 @@
   loop_control:
     loop_var: inner_item
   when: inner_item["key"] == service_name
+
 - name: "Check services status"
   fail:
     msg: "Service {{ service_name }} shoud be {{ service_state }} and {{ service_status }}, now its {{ found_service_state }} and {{ found_service_status }}"
-  when: found_service_state != service_state 
+  when: found_service_state not in service_state or found_service_status != service_status

@@ -1,1 +1,4 @@
-- include_tasks: "{{ wait_for.task }}.yml"
+- include_tasks: "{{ item.task }}.yml"
+  vars:
+    task: "{{ item }}"
+  loop: "{{ check_ports }}"

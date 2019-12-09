@@ -1,20 +1,29 @@
-wait_for:
+check_ports:
+  - ports:
+    - 22
     timeout: 10
     task: target
-    ports:
-    - 22
     want_state: "started"
-    remote: "10.211.55.23"
+    remote: "localhost"
+  - ports:
+    - 53
+    - 443
+    - 80
+    timeout: 10
+    task: self
+    want_state: "stopped"
+
 modprobe:
     - br_netfilter
 
-# state should be "stopped" or "started"
+# state should be "stopped"/"unknown" or "started"
 # state should be "enabled" or "disabled"
 service:
     - name: "firewalld.service"
       status: "disabled"
-      state: "stopped"
-
+      state:
+      - "stopped"
+      - "unknown"
 
 command:
     - "wget"
@@ -28,7 +37,9 @@ command:
 content_denied:
     - file: "/etc/hosts"
       line: "search"
-
-content_required:
     - file: "/etc/selinux/config"
       line: "SELINUX=enforcing"
+    - file: "/etc/fstab"
+      line: "^\\/.*?\\s+swap.*?$"
+
+content_required: []

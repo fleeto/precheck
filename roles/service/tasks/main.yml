@@ -1,5 +1,6 @@
 - name: "Fetching services status"
   service_facts:
+
 - name: "Checking "
   include_tasks: "populate.yml"
   vars:

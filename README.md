@@ -6,14 +6,20 @@
 
 ## 端口检查
 
-编辑 `group_vars/all` 中的 YAML：
-
 ~~~yaml
-wait_for:
+check_ports:
+  - ports:
+    - 22
     timeout: 10
-    task: local
-    ports:
-    - 23
+    task: target
+    want_state: "started"
+    remote: "localhost"
+  - ports:
+    - 53
+    - 443
+    - 80
+    timeout: 10
+    task: self
     want_state: "stopped"
 ~~~
 
@@ -81,10 +87,12 @@ command:
 content_denied:
     - file: "/etc/hosts"
       line: "search"
+    - file: "/etc/fstab"
+      line: "^\\/.*?\\s+swap.*?$"
 
 content_required:
     - file: "/etc/selinux/config"
       line: "SELINUX=enforcing"
 ~~~
 
-对文本文件进行检查，要求其中必须包含或者不包含某一行内容。
+对文本文件进行检查，要求其中必须包含或者不包含某一行内容。通过 `grep -P` 检查 `line` 内容。
