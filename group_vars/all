@@ -12,6 +12,14 @@ check_ports:
     timeout: 10
     task: self
     want_state: "stopped"
+  - ports:
+    - 6800
+    - 6850
+    - 6900
+    timeout: 10
+    task: remote
+    want_state: "started"
+    remote: "localhost"
 
 modprobe:
     - br_netfilter
